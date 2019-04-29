@@ -1,0 +1,142 @@
+//=============================================================
+// @name area 15 竞技场免费场
+//=============================================================
+// 报名
+// @name sign_up 
+message m_1501_tos{
+}
+message m_1501_toc{
+}
+
+//竞技场玩家信息
+message p_area_role{
+    required   uint32   role_id         = 1;// 玩家id
+    required   string   name            = 2;// 玩家名字
+    repeated   p_skill  skill_list      = 3;// 正在使用的技能列表
+    required   uint32   num             = 4;// 玩家剩余次数
+    required   uint32   score           = 5;// 玩家积分
+
+}
+
+// 离开房间
+// @name leave_room
+message m_1502_tos{}
+
+message m_1502_toc{}
+
+// 打动物
+// @name go_bet
+message m_1503_tos{
+    required    uint32      id          = 1; // 动物唯一ID
+}
+message m_1503_toc{
+}
+
+
+// 使用道具
+// @name use_item
+message m_1504_tos{
+    required    e_item_type      type     = 1; // 物品类型
+
+}
+message m_1504_toc{
+}
+
+// 推送玩家打动物
+// @name push_hit_animal
+message m_1505_toc{
+    required    uint32      role_id     = 1; // 玩家ID
+    required    uint32      id          = 2; // 动物ID
+}
+
+// 推送动物进来
+// @name push_animal_enter
+message m_1506_toc{
+    repeated    p_animal     animals  = 1; //动物信息
+}
+
+// 匹配成功
+// @name push_role_list
+message m_1507_toc{
+    repeated    p_area_role     role_list  = 1; //人物信息列表
+}
+
+
+
+// 推送玩家离开房间
+// @name push_role_leave
+message m_1508_toc{
+    required    uint32      role_id     = 1; // 玩家ID
+}
+
+// 推送动物被打死
+// @name push_animal_die
+message m_1509_toc{
+    required    uint32          role_id     = 1; // 玩家ID
+    required    uint32          type        = 2; // 动物死亡技能特效 0,普通，1闪电，2，炸弹
+    repeated    p_animal_die    ids         = 3; // 打中的动物列表
+}
+
+// 推送预警
+// @name push_pre_animal
+message m_1510_toc{
+    required   e_animal        base_id  = 1;// 动物标识id
+}
+
+// 推送动物离开
+// @name push_animal_out
+message m_1511_toc{
+    repeated   uint32        id  = 1;// 动物唯一id
+}
+
+// 推送使用技能
+// @name push_use_skill
+message m_1512_toc{
+    required   uint32             role_id     = 1;// 人物id
+    required   e_item_type        type        = 2;// 道具类型
+    required   string             icon        = 3;// 人物头像
+    optional   uint32             effect      = 4;// 效果  狂暴倍数
+}
+
+// 进入推送动物列表
+// @name push_animal_list
+message m_1513_toc{
+    repeated    p_animal     animal_list  = 1; //动物信息列表
+    required    uint32       time         = 2; //剩余时间
+}
+
+
+// 推送技能消失
+// @name push_delete_skill
+message m_1514_toc{
+    required   uint32         id      =1;//人物id
+    required   e_item_type    type    =2;//技能类型
+}
+
+// 获取每天已经打过的次数
+// @name get_enter_num
+message m_1515_tos{
+}
+message m_1515_toc{
+    required   uint32         num      =1;//次数
+}
+
+// 排行发奖
+// @name push_reward
+message m_1516_toc{
+    repeated  p_area_role        list =1;//排行发奖
+}
+
+
+
+// 重新请求竞技场数据（断线重连）
+// @name reconnect_animal
+message m_1518_tos{
+}
+message m_1518_toc{
+    repeated    p_animal        animals      = 1; // 动物信息
+    repeated    p_area_role      role_list   = 2; // 玩家信息
+    required    uint32      time        = 3; // 剩余时间
+}
+
+

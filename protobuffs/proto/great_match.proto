@@ -1,0 +1,181 @@
+//=============================================================
+// @name great_match 20 大奖赛
+//=============================================================
+// 进入房间
+// @name enter_room
+message m_2001_tos{
+}
+
+message m_2001_toc{
+    repeated    p_animal        animals       = 1; // 动物信息
+    repeated    p_animal_role   role_list     = 2; // 玩家信息
+    required    uint32          time          = 3; // 活动结束倒计时
+    optional    uint32           num          = 4; // 剩余魔法值
+    optional    uint32           score        = 5; // 本次积分
+
+}
+
+// 离开房间
+// @name leave_room
+message m_2002_tos{}
+
+message m_2002_toc{}
+
+// 打动物
+// @name go_bet
+message m_2003_tos{
+    required    uint32      id          = 1; // 动物唯一ID
+    required    uint32      coin        = 2; // 金币数量
+}
+message m_2003_toc{
+    required    uint32      num          = 1; // 剩余魔法值
+    required    uint32      score         = 2; // 本次获得总积分
+}
+
+
+// 动物园使用道具
+// @name use_item
+message m_2004_tos{
+    required    e_item_type      type     = 1; // 物品类型
+
+}
+message m_2004_toc{
+}
+
+
+// 推送玩家打动物
+// @name push_hit_animal
+message m_2005_toc{
+    required    uint32      role_id     = 1; // 玩家ID
+    required    uint32      id          = 2; // 动物ID
+}
+
+// 推送动物进来
+// @name push_animal_enter
+message m_2006_toc{
+    repeated    p_animal     animals  = 1; //动物信息
+}
+
+// 推送玩家进入房间
+// @name push_role_enter
+message m_2007_toc{
+    required    p_animal_role  role  = 1; //玩家信息
+}
+
+// 推送玩家离开房间
+// @name push_role_leave
+message m_2008_toc{
+    required    uint32      role_id     = 1; // 玩家ID
+}
+
+// 推送动物被打死
+// @name push_animal_die
+message m_2009_toc{
+    required    uint32          role_id     = 1; // 玩家ID
+    required    uint32          type        = 2; // 动物死亡技能特效 0,普通，1闪电，2，炸弹
+    repeated    p_animal_die    ids         = 3; // 打中的动物列表
+}
+
+// 推送预警
+// @name push_pre_animal
+message m_2010_toc{
+    required   e_animal        base_id  = 1;// 动物标识id
+}
+
+// 推送动物离开
+// @name push_animal_out
+message m_2011_toc{
+    repeated   uint32        id  = 1;// 动物唯一id
+}
+
+// 推送使用技能
+// @name push_use_skill
+message m_2012_toc{
+    required   uint32             role_id     = 1;// 人物id
+    required   e_item_type        type        = 2;// 道具类型
+    required   string             icon        = 3;// 人物头像
+    optional   uint32             effect      = 4;// 效果  狂暴倍数
+}
+
+
+// 推送动物状态改变
+// @name push_animal_status
+message m_2013_toc{
+    repeated    p_animal_status     list = 1;//动物列表
+}
+
+
+// 推送技能消失
+// @name push_delete_skill
+message m_2014_toc{
+    required   uint32         id      =1;//人物id
+    required   e_item_type    type    =2;//技能类型
+}
+
+// 获取大奖赛详细信息
+// @name get_match_info 
+message m_2015_tos{
+}
+message m_2015_toc{
+    required   uint32         week_score       =1;//周累计积分
+    required   uint32         daily_score      =2;//日累积分
+    required   uint32         times            =3;//今日挑战次数
+    required   uint32         num              =4;//剩余魔法值
+    required   uint32         status           =5;//大奖赛活动状态，0未开启，1正常， 2，报名结束
+}
+
+// 购买大奖赛次数
+// @name buy_match_times
+message m_2016_tos{
+}
+message m_2016_toc{
+}
+
+// 获取大奖赛单次详细信息
+// @name get_once_match_info 
+message m_2017_tos{
+}
+message m_2017_toc{
+    required   uint32         base       =1;//基础积分
+    required   uint32         high       =2;//高倍加成积分
+    required   uint32         vip        =3;//vip加成积分
+    required   uint32         repeat     =4;//重复挑战加成积分
+    required   uint32         task       =5;//任务加成积分
+    required   uint32         once       =6;//本次总积分
+    required   uint32         score      =7;//今日总积分
+    required   uint32         status     =8;//大奖赛活动状态，0未开启，1正常， 2，报名结束
+}
+
+
+// 重新请求大奖赛数据（断线重连）
+// @name reconnect_animal
+message m_2018_tos{
+}
+
+message m_2018_toc{
+    repeated    p_animal        animals       = 1; // 动物信息
+    repeated    p_animal_role   role_list     = 2; // 玩家信息
+    required    uint32          time          = 3; // 活动结束倒计时
+    optional   uint32           num           = 4;//剩余魔法值
+    optional    uint32           score        = 5; // 本次积分
+}
+
+// 大奖赛结束主动提出房间 
+// @name out_room
+message m_2019_toc{
+}
+
+
+
+// 使用表情
+// @name use_expression
+message m_2021_tos{
+    required     uint32       type          = 1;//表情类型
+    required     uint32       to_id         = 2;//对谁使用的表情id
+}
+message m_2021_toc{
+    required     uint32       role_id          = 1;//人物id
+    required     uint32       type             = 2;//表情类型
+    required     uint32       to_id            = 3;//对谁使用的表情id
+}
+
